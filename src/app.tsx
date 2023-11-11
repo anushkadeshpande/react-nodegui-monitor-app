@@ -5,17 +5,16 @@ import nodeguiIcon from "../assets/nodegui.jpg";
 
 const minSize = { width: 500, height: 520 };
 const winIcon = new QIcon(nodeguiIcon);
-class App extends React.Component {
-  render() {
+const App = () => {
     return (
       <Window
         windowIcon={winIcon}
         windowTitle="Hello 👋🏽"
         minSize={minSize}
       >
+
       </Window>
     );
-  }
 }
 
 export default hot(App);
