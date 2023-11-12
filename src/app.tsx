@@ -9,7 +9,7 @@ import { initialData } from "./helpers/initialData";
 
 import { InnerContainer } from "./components/InnerContainer"; // Application width and height
 import StatsColumn from "./components/StatsColumn";
-import StatsRow from './components/StatsRow'
+import StatsRow from "./components/StatsRow";
 const fixedSize = { width: 490, height: 460 };
 
 const minSize = { width: 500, height: 520 };
@@ -20,13 +20,33 @@ const App = () => {
   useEffect(() => {
     const getSystemData = async () => {
       const sysData: any = await systemDetails();
-      console.log(sysData)
+      // console.log(sysData)
       setData(sysData);
     };
     getSystemData();
   });
   //Get Static Data
   const { platform, operatingSystem, ip, osType, arch } = data.staticDetails;
+
+  const renderCpuDetails = () => {
+    const cpuDetails: any = data.cpuDetails;
+    return Object.keys(cpuDetails).map((key) => {
+      const stat = cpuDetails[key];
+      return (
+        <StatsColumn label={stat.label} usage={stat.usage} color={stat.color} />
+      );
+    });
+  };
+
+  const renderMemoryDetails = () => {
+    const memDetails: any = data.memoryDetails;
+    return Object.keys(memDetails).map((key) => {
+      const stat = memDetails[key];
+      return (
+        <StatsColumn label={stat.label} usage={stat.usage} color={stat.color} />
+      );
+    });
+  };
   return (
     <Window minSize={fixedSize} maxSize={fixedSize} styleSheet={styleSheet}>
       <View id="container">
@@ -40,6 +60,17 @@ const App = () => {
             <Text id="infoText">{ip}</Text>
             <Text id="infoText">{arch}</Text>
           </View>
+          {/* <InnerContainer title={"Disk Space"}>
+            {renderDriveDetails()}
+          </InnerContainer> */}
+        </StatsRow>
+        <StatsRow>
+          <InnerContainer title={"CPU Usage"}>
+            {renderCpuDetails()}
+          </InnerContainer>
+          <InnerContainer title={"Memory Usage"}>
+            {renderMemoryDetails()}
+          </InnerContainer>
         </StatsRow>
       </View>
     </Window>
