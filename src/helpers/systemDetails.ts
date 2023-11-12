@@ -2,7 +2,7 @@
 const osu = require('node-os-utils')
 
 // Destructure plugin modules
-const {os, cpu, mem, drive} = osu
+const {os, cpu, mem} = osu
 
 // Import Globals
 import { globals } from "./globals"
